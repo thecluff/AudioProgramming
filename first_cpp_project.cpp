@@ -6,13 +6,17 @@ using namespace std;
 int main()
 { 
 
+// These are local variables
 // This is where the user's age will go
 int age; // This declares an integer variable with the name "age"    
+string name;
 
 cout << "Hello World" << endl;
 cout << "Please enter your age." << endl;
 cin >> age;
-cout << "I see... your age is " << age << endl; 
+cout << "Please enter your name." << endl;
+cin >> name;
+cout << "I see, " << name << "... your age is " << age << endl; 
 
 return 0;
 }
