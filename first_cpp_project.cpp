@@ -5,7 +5,7 @@ using namespace std;
 
 int main()
 { 
-
+// A function is a block of code that is configured with a name, a place to insert input values, and an output
 // These are local variables
 // This is where the user's age will go
 int age; // This declares an integer variable with the name "age"    
