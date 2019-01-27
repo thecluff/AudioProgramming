@@ -2,11 +2,11 @@
 using namespace std;
 
 // "main" is the point of entry for the program
-int my_func(int value) {
-    cout << value << endl;
-    // cout << age << endl;
-    return 0;
-}
+// int my_func(int value) {
+//     cout << value << endl;
+//     // cout << age << endl;
+//     return 0;
+// }
 
 int main()
 { 
@@ -16,13 +16,13 @@ int main()
 int age; // This declares an integer variable with the name "age"    
 string name;
 
-cout << "Hello World" << endl;
-cout << "Please enter your age." << endl;
-cin >> age;
-cout << "Please enter your name." << endl;
+cout << "Hello! Welcome to Charlie's C++ program." << endl;
+cout << "What's your name?" << endl;
 cin >> name;
-cout << "I see, " << name << "... your age is " << age << endl; 
+cout << "Thanks. What's your age?" << endl;
+cin >> age;
+cout << "Excellent. I hope you have a good day, " << name << ". Cheers to being " << age << " years old."<< endl; 
 
-my_func(100);
+// my_func(100);
 return 0;
 }
