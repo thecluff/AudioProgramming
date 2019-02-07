@@ -2,6 +2,7 @@
 // In other words, 2^0 is 1, 2^1 is 2, etc
 
 #include <iostream>
+#include <iomanip>
 #include <cmath>
 
 using namespace std;
@@ -27,7 +28,7 @@ int main(int argc, const char *argv[]) {
         dB = 20 * log10(powerof2);
 
         // Print it. the \t is an escape code to add a tab
-        cout << "2 to " << ndx++ << " is equal to " << powerof2 << ". \tThe decibel equivalent is " << dB << endl;
+        cout << "2 to " << ndx++ << " is equal to " << powerof2 << ". \tThe decibel equivalent is " << setprecision(10) << dB << endl;
     }
 
     return 0;
