@@ -15,6 +15,24 @@ int main(int argc, const char *argv[]) {
     int ndx = 0;
     // Prompt user 
 
+    cout << endl;
+
+    cout << "  sSSSs   d       b d sss     sss.   sss. " << endl;
+    cout << " S     S  S       S S       d      d      " << endl;
+    cout << "S         S       S S       Y      Y      " << endl;
+    cout << "S         S       S S sSSs    ss.    ss.  " << endl;
+    cout << "S    ssSb S       S S            b      b " << endl;
+    cout << " S     S   S     S  S            P      P " << endl;
+    cout << "   sss       sss    P sSSss ` ss'  ` ss'  " << endl;
+    cout << "                                          " << endl;
+    cout << "          By Charlie Cluff,  2019         " << endl;
+    cout << "          DAT150 - Audio Programming      " << endl;
+
+
+
+
+    cout << endl;
+
     cout << "How many powers of two would you like to calculate? (1 or above) " << endl;
     cin >> npowers;
     // pow(base, exp)
