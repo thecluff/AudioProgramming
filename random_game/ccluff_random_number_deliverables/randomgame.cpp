@@ -78,7 +78,6 @@ int main(int argc, const char *argv[]) {
         cout << "Your guess is higher than the secret number. " << "The secret number is " << rand_num << "." << endl;
     else 
         cout << "Correct - you got it!" << "The secret number is " << rand_num << "." << endl;
-
         }
     else if (guess2 > rand_num){
         cout << "Your guess is higher than the secret number. " << "Try again." << endl;
@@ -89,11 +88,9 @@ int main(int argc, const char *argv[]) {
         cout << "Your guess is higher than the secret number. " << "The secret number is " << rand_num << "." << endl;
     else 
         cout << "Correct - you got it!" << "The secret number is " << rand_num << "." << endl;
-
     }
     else 
         cout << "Correct - you got it!" << "The secret number is " << rand_num << "." << endl;
-
     }
     else if (guess1 > rand_num){ 
         cout << "Your guess is higher than the secret number. " << "Try again." << endl;
@@ -107,7 +104,6 @@ int main(int argc, const char *argv[]) {
         cout << "Your guess is higher than the secret number. " << "The secret number is " << rand_num << "." << endl;
     else 
         cout << "Correct - you got it!" << "The secret number is " << rand_num << "." << endl;
-
         }
     else if (guess2 > rand_num){
         cout << "Your guess is higher than the secret number. " << "Try again." << endl;
@@ -118,11 +114,9 @@ int main(int argc, const char *argv[]) {
         cout << "Your guess is higher than the secret number. " << "The secret number is " << rand_num << "." << endl;
     else 
         cout << "Correct - you got it!" << "The secret number is " << rand_num << "." << endl;
-
     }
     else 
         cout << "Correct - you got it!" << "The secret number is " << rand_num << "." << endl;
-
     }
     else 
         cout << "Correct - you got it!" << "The secret number is " << rand_num << "." << endl;
