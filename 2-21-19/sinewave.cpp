@@ -16,7 +16,7 @@ using namespace std;
 const double PI = 4.0 * atan(1.0);
 const int nSamps = 8;
 const double amp = 1.0;
-double phase = 0.0;     // Phase will be in radians
+double phase = PI/2;     // Phase will be in radians
 double *buffer;         // A buffer is a place to hold samples
 
 // Objective is to generate 8 sample values that collectively trace a sine wave,
@@ -29,7 +29,13 @@ int main(int argc, const char * argv[]) {
     buffer = new double[nSamps];
     // Generate and store sample values
     for(int ndx=0;ndx<nSamps;ndx++){
-        buffer[ndx]  = 2*PI*ndx/nSamps;
+        buffer[ndx]  = sin(2*PI*ndx/nSamps + phase);
+    }
+
+    // Display values in the buffer
+
+    for(int ndx=0;ndx<nSamps;ndx++){
+        cout << ndx << "\t\t" << buffer[ndx] << endl;
 
     }
 
