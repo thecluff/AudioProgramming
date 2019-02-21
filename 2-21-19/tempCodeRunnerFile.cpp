@@ -15,7 +15,7 @@ using namespace std;
 
 const double PI = 4.0 * atan(1.0);
 const int nSamps = 8;
-const double amp = 1.0;
+const double amp = 0.5;
 double phase = PI/2;     // Phase will be in radians
 double *buffer;         // A buffer is a place to hold samples
 
@@ -29,7 +29,7 @@ int main(int argc, const char * argv[]) {
     buffer = new double[nSamps];
     // Generate and store sample values
     for(int ndx=0;ndx<nSamps;ndx++){
-        buffer[ndx]  = sin(2*PI*ndx/nSamps + phase);
+        buffer[ndx]  = amp * sin(2*PI*ndx/nSamps + phase);
     }
 
     // Display values in the buffer
