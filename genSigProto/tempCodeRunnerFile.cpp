@@ -36,7 +36,7 @@ int genWvfrm(int nSamps, double freq, double amp, double phase, double *buf) {
   
    // Generate and store sample values
     for(int ndx=0;ndx<nSamps;ndx++){
-        buffer[ndx]  = amp * sin(2*PI*ndx/nSamps + phase);
+        buffer[ndx]  = amp * sin(freq*2*PI*ndx/nSamps + phase);
     }
 
    return 0; 
