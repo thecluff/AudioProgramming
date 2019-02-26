@@ -13,7 +13,7 @@ double PI = 4.0 * atan(1.0);
 
 // Declare a buffer
 double * buffer;
-const int pts = 32;
+const int pts = 500;
 
 // Create the file
 // ofstream sine;
