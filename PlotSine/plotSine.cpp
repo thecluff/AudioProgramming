@@ -13,6 +13,7 @@ double PI = 4.0 * atan(1.0);
 
 // Declare a buffer
 double * buffer;
+const int pts = 32;
 
 // Create the file
 // ofstream sine;
@@ -26,12 +27,12 @@ int genSine(double *buf, int nSamps);
 int main (int argc, const char *argv[]) {
 
     // Allocate the buffer
-    buffer = new double[8];
+    buffer = new double[pts];
 
-    genSine(buffer,8);
+    genSine(buffer,pts);
 
     // Write the values of the buffer to a file
-    saveToFile(buffer, 8) ;
+    saveToFile(buffer, pts) ;
 
     return 0;
 }
