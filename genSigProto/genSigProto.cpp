@@ -56,3 +56,6 @@ int displayWvfrm(int nSamps, double *buf) {
 
 // Study functions: function signature - parameters, return value, how to call when we've defined it
 // For loops
+// Name, return type, parameter, body
+
+// Any tone has Frequency, phase, amplitude
