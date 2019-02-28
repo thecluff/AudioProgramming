@@ -11,7 +11,7 @@ using namespace std;
 
 const double PI = 4.0*atan(1.0);
 double *buffer;
-const int pts = 1000;
+const int pts = 10000;
 const int k = 5;    // The letter 'k' is often used to symbolize the # of harmonics
 const string fName = "cmplx.dat";
 
