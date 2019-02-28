@@ -12,8 +12,8 @@ using namespace std;
 double PI = 4.0 * atan(1.0);
 
 // Declare a buffer
-double * buffer;
-const int pts = 500;
+double * buffer;    // * is the symbol for what is called a "pointer"
+const int pts = 1000;
 
 // Create the file
 // ofstream sine;
@@ -22,14 +22,14 @@ const int pts = 500;
 // This function will need a filestream, a buffer, 
 // and the length of the buffer to write
 int saveToFile(double *buf, int nSamps);
-int genSine(double *buf, int nSamps);
+int genSine(double *buf, int nSamps, double amp, double freq, double ph);
 
 int main (int argc, const char *argv[]) {
 
     // Allocate the buffer
     buffer = new double[pts];
 
-    genSine(buffer,pts);
+    genSine(buffer,pts,0.707,7,PI);
 
     // Write the values of the buffer to a file
     saveToFile(buffer, pts) ;
@@ -37,11 +37,11 @@ int main (int argc, const char *argv[]) {
     return 0;
 }
 
-int genSine(double *buf, int nSamps){
+int genSine(double *buf, int nSamps, double amp, double freq, double phase){
     
     // This generates sine wave values in a loop and leaves them in a buffer
     for(int ndx=0;ndx<nSamps;ndx++){
-    buf[ndx] = sin(2*PI*ndx/nSamps);
+    buf[ndx] = amp * sin(freq*2*PI*ndx/nSamps + phase);
     }
     return 0;
 }
