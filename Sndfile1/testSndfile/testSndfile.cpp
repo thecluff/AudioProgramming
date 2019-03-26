@@ -51,11 +51,35 @@ int main(int argc, const char *argv[]) {
     }
 
     // Examine the file format information
-
      cout << "The number of frames is " << sfInInfo.frames << "." << endl;
      cout << "The number of channels is " << sfInInfo.channels << "." << endl;
      cout << "The sample rate is " << sfInInfo.samplerate << "." << endl;
      cout << "The file format is " << sfInInfo.format << "." << endl;
+
+    // Next, set up the output file
+    sfOutInfo.frames = sfInInfo.frames;
+    sfOutInfo.channels = sfInInfo.channels;
+    sfOutInfo.samplerate = sfInInfo.samplerate;
+    sfOutInfo.format = sfInInfo.format;
+    
+    // Now open the output file. The same precautions apply.
+        if(! (outfile = sf_open(argv[2], SFM_WRITE, &sfOutInfo))) {
+        cout << "Not able to open output file." << endl;
+        cout << "Application will now close." << endl;
+        sf_error(NULL);
+        return 1;
+    }
+
+    // Allocate some memory for the two buffers.
+    // The number of frames is the same for both monophonic and stereo files.
+    // The difference is the number of channels.
+    inp = new double[sfInInfo.frames*sfInInfo.channels];
+    outp = new double[sfInInfo.frames*sfInInfo.channels];
+
+    // Read in audio data from the input file
+    readCount = sf_read_double(infile, inp, sfInInfo.frames*sfInInfo.channels);
+    // Print the number of frames read
+    cout << "The number of samples read is " << "\t\t" << readCount << endl;
 
     return 0;
 }
