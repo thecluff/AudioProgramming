@@ -52,10 +52,10 @@ int main(int argc, const char *argv[]) {
 
     // Examine the file format information
 
-    // cout << "The number of frames is " << sfInInfo.frames << "." << endl;
-    // cout << "The number of channels is " << sfInInfo.channels << "." << endl;
-    // cout << "The sample rate is " << sfInInfo.samplerate << "." << endl;
-    // cout << "The file format is " << sfInInfo.format << "." << endl;
+     cout << "The number of frames is " << sfInInfo.frames << "." << endl;
+     cout << "The number of channels is " << sfInInfo.channels << "." << endl;
+     cout << "The sample rate is " << sfInInfo.samplerate << "." << endl;
+     cout << "The file format is " << sfInInfo.format << "." << endl;
 
     return 0;
 }
