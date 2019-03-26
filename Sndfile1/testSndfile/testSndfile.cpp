@@ -86,5 +86,17 @@ int main(int argc, const char *argv[]) {
         outp[ndx] = inp[ndx];
     }
 
+    writeCount = sf_write_double(outfile, outp, sfInInfo.frames*sfInInfo.channels);
+
+    // Look to see if the number of samples written is equal to the number of samples read.
+
+    cout << "The number of input samples is " << "\t" << readCount << endl;
+    cout << "The number of output samples is " << "\t" << writeCount << endl;
+    // Clean up
+    sf_close(infile);
+    sf_close(outfile);
+    delete [] inp;
+    delete [] outp;
+
     return 0;
 }
