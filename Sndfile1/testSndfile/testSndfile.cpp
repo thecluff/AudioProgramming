@@ -81,5 +81,10 @@ int main(int argc, const char *argv[]) {
     // Print the number of frames read
     cout << "The number of samples read is " << "\t\t" << readCount << endl;
 
+    // Copy audio from the input buffer to the output buffer
+    for(int ndx=0;ndx<sfInInfo.frames*sfInInfo.channels;ndx++){
+        outp[ndx] = inp[ndx];
+    }
+
     return 0;
 }
