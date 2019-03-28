@@ -14,6 +14,7 @@ sf_count_t readCount, writeCount;
 int setGain(double *buf, int length, int gainFac);
 int reverse(double *buf, int length);
 int reverse2(double *buf, double *temp, int length);
+int normalize(double *buf, int length);
 
 int main(int argc, const char *argv[]) {
 
@@ -61,6 +62,7 @@ int main(int argc, const char *argv[]) {
 
 	// Copy and reverse the audio samples
 	reverse2(inBuf, outBuf, sfInInfo.frames*sfInInfo.channels);
+	normalize(outBuf, sfInInfo.frames*sfInInfo.channels);
 	// Set the output gain
 	setGain(outBuf, sfInInfo.frames*sfInInfo.channels, atof(argv[3]));
 
@@ -111,5 +113,20 @@ int reverse2(double *buf, double *temp, int length) {
 		temp[length - 1 - ndx] = buf[ndx];
 	}
 
+	return 0;
+}
+
+int normalize(double *buf, int length) {
+
+    double peakAmp = 0.0;
+
+    for(int ndx=0;ndx<length;ndx++) {
+        if(buf[ndx]>peakAmp) {
+            peakAmp = buf[ndx];
+        }
+    }
+    for(int ndx=0;ndx<length;ndx++) {
+        buf[ndx] *= 1.0/peakAmp;
+    }
 	return 0;
 }
