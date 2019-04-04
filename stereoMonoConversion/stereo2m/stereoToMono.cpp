@@ -39,7 +39,7 @@ int main(int argc, const char *argv[])
 
 	cout << "The number of input frames is " << sfInInfo.frames << "." << endl;
 	cout << "The sample rate is " << sfInInfo.samplerate << "." << endl;
-	cout << "The number of channels is" << sfInInfo.channels << "." << endl;
+	cout << "The number of channels is " << sfInInfo.channels << "." << endl;
 
 	// Set up output file
 	sfOutInfo.frames = sfInInfo.frames;
@@ -58,13 +58,13 @@ int main(int argc, const char *argv[])
 
 	// Allocate input and output buffers
 	// Check to see if the info structs are correct
-	cout << "The number of input samples is" << sfInInfo.frames*sfInInfo.channels << "." << endl;
-	cout << "The number of output samples is" << sfOutInfo.frames*sfOutInfo.channels << "." << endl;
+	cout << "The number of input samples is " << sfInInfo.frames*sfInInfo.channels << "." << endl;
+	cout << "The number of output samples is " << sfOutInfo.frames*sfOutInfo.channels << "." << endl;
 	inBuf = new double[sfInInfo.frames * sfInInfo.channels];
 	outBuf = new double[sfInInfo.frames * 1];
 
 	readCount = sf_read_double(infile, inBuf, sfInInfo.frames*sfInInfo.channels);
-	cout << "The number of samples read is" << readCount << endl;
+	cout << "The number of samples read is " << readCount << endl;
 
 	// Copy the samples
 	cout << "Copying samples now..." << endl;
