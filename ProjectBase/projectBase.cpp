@@ -3,6 +3,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <sndfile.h>
+#include "processing.cpp"
 #include "processing.hpp"
 
 using namespace std;
@@ -24,7 +25,6 @@ int copySamples(double *inBuf, double *outBuf, int length);
 int writeOutput();
 int cleanUp();
 
-
 int main(int argc, const char * argv[]){
 
 	openInput(argv[1]);
@@ -35,11 +35,17 @@ int main(int argc, const char * argv[]){
 	readInput();
 	copySamples(inp, outp, sfInInfo.frames*sfInInfo.channels);
 
+	reverse(outp, outp, sfInInfo.frames*sfInInfo.channels);
+
+	invert(outp, sfInInfo.frames*sfInInfo.channels);
+
+	rectify(outp, sfInInfo.frames*sfInInfo.channels);
+
 	// Put processing functions here
 	normalize(outp, sfInInfo.frames*sfInInfo.channels);
 
-	writeOutput();
-	cleanUp();
+	// writeOutput();
+	// cleanUp();
 
     return 0;
 }
