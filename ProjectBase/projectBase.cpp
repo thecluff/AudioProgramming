@@ -25,13 +25,14 @@ int copySamples(double *inBuf, double *outBuf, int length);
 int writeOutput();
 int cleanUp();
 
-int main(int argc, const char * argv[]){
+int main(int argc, const char *argv[]){
 
 	openInput(argv[1]);
 	openOutput(argv[2], atoi(argv[3]));
 	// Allocate buffers
 	inp = new double[sfInInfo.frames*sfInInfo.channels];
-	outp = new double[sfInInfo.frames*sfInInfo.channels];
+	// For now - double the size of outp (For panMod)
+	outp = new double[sfInInfo.frames*atoi(argv[3])];
 	readInput();
 	copySamples(inp, outp, sfInInfo.frames*sfInInfo.channels);
 
@@ -41,16 +42,19 @@ int main(int argc, const char * argv[]){
 
 	clip(outp, sfInInfo.frames*sfInInfo.channels, sfInInfo.channels);
 
+	// rectify(outp, sfInInfo.frames*sfInInfo.channels);
+
 	fadeIn(outp, sfInInfo.samplerate, sfInInfo.channels, 1);
 
 	fadeOut(outp, sfInInfo.channels*sfInInfo.frames, sfInInfo.samplerate, sfInInfo.channels, 1.5);
 
 	// dynPan(outp, sfInInfo.channels*sfInInfo.frames, sfInInfo.samplerate, sfInInfo.channels );
 
-	// rectify(outp, sfInInfo.frames*sfInInfo.channels);
+	// ampMod(outp, sfInInfo.channels*sfInInfo.frames, sfInInfo.samplerate, 50);
 
-	ampMod(outp, sfInInfo.channels*sfInInfo.frames, sfInInfo.samplerate, 30);
+	// In order to use panMod, the input signal must be mono and the length of the output buffer is doubled 
 
+	panMod(inp, sfInInfo.channels*sfInInfo.frames, outp, sfInInfo.samplerate, 0.35);
 
 	// Put processing functions here
 	normalize(outp, sfInInfo.frames*sfInInfo.channels);
