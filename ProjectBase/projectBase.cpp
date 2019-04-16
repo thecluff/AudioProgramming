@@ -35,17 +35,27 @@ int main(int argc, const char * argv[]){
 	readInput();
 	copySamples(inp, outp, sfInInfo.frames*sfInInfo.channels);
 
-	reverse(outp, outp, sfInInfo.frames*sfInInfo.channels);
+	// reverse(outp, outp, sfInInfo.frames*sfInInfo.channels);
 
-	invert(outp, sfInInfo.frames*sfInInfo.channels);
+	// invert(outp, sfInInfo.frames*sfInInfo.channels);
 
-	rectify(outp, sfInInfo.frames*sfInInfo.channels);
+	clip(outp, sfInInfo.frames*sfInInfo.channels, sfInInfo.channels);
+
+	fadeIn(outp, sfInInfo.samplerate, sfInInfo.channels, 1);
+
+	fadeOut(outp, sfInInfo.channels*sfInInfo.frames, sfInInfo.samplerate, sfInInfo.channels, 1.5);
+
+	dynPan(outp, sfInInfo.channels*sfInInfo.frames, sfInInfo.samplerate, sfInInfo.channels );
+
+	// fadeIn(double *buffer, int SR, int nChnls, double fadeTime);
+
+	// rectify(outp, sfInInfo.frames*sfInInfo.channels);
 
 	// Put processing functions here
 	normalize(outp, sfInInfo.frames*sfInInfo.channels);
 
-	// writeOutput();
-	// cleanUp();
+	writeOutput();
+	cleanUp();
 
     return 0;
 }

@@ -11,4 +11,12 @@ int reverse(double *inBuf, double *outBuf, int length);
 
 int invert(double *inBuf, double *outBuf, int length);
 
+int clip(double *buffer, int length, double height);
+
+int fadeIn(double *buffer, int SR, int nChnls, double fadeTime);
+
+int fadeIn(double *buffer, int length, int SR, int nChnls, double fadeTime);
+
+int dynPan(double *buffer, int length, int SR, int nChnls);
+
 #endif /* PROCESSING.HPP */
