@@ -49,7 +49,7 @@ int main(int argc, const char * argv[]){
 
 	// rectify(outp, sfInInfo.frames*sfInInfo.channels);
 
-	ampMod(outp, sfInInfo.channels*sfInInfo.frames, sfInInfo.samplerate, 2.0);
+	ampMod(outp, sfInInfo.channels*sfInInfo.frames, sfInInfo.samplerate, 30);
 
 
 	// Put processing functions here

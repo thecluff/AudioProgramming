@@ -1,6 +1,5 @@
 #include <cmath>
 
-
 #ifndef PROCESSING_HPP_
 #define PROCESSING_HPP_
 const double PI = 4.0 * atan(1.0);
