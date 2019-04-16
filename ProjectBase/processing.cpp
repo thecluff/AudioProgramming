@@ -5,7 +5,6 @@
 
 int gain(double *buffer, int length, double gainFac) {
     for(int ndx=0;ndx<length;ndx++) {
-
         buffer[ndx] *= gainFac;
     }
     return 0;
@@ -46,7 +45,6 @@ int rectify(double *buffer, int length) {
 }
 
 // Invert signal polarity (positive to negative, negative to positive)
-
 int invert(double *buffer, int length) {
     for(int ndx=0;ndx<length;ndx++) {
         buffer[ndx] *= -1.0;
@@ -55,7 +53,6 @@ int invert(double *buffer, int length) {
 }
 
 int clip(double *buffer, int length, double height) {
-
     for(int ndx=0;ndx<length;ndx++) {
         if(fabs(buffer[ndx])>height) {
             if(buffer[ndx]<0.0) {
@@ -88,25 +85,40 @@ int fadeOut(double *buffer, int length, int SR, int nChnls, double fadeTime) {
     return nSamps;
 }
 
-int dynPan(double *buffer, int length, int SR, int nChnls) {
-    int total = SR * nChnls;
+// int dynPan(double *buffer, int length, int SR, int nChnls) {
+//     int total = SR * nChnls;
 
-    int intervals = SR;
+//     int intervals = SR;
     
-    for(int ndx=0;ndx<length;ndx++){
-        // create each channel as an array of bits 
-        int newChannel1
-    }
+//     for(int ndx=0;ndx<length;ndx++){
+//         // create each channel as an array of bits 
+//         int newChannel1
+//     }
 
-    for(int ndx=0;ndx<total;ndx++){
-        // get the same ndx fom each channel and put that into buffer at next index
-        int tempNdx = ndx;
-        for(int ndx2=1;ndx2<=nChnls;ndx2++){
-            buffer[tempNdx] = newChannel${ndx2}[ndx]; 
-            tempNdx++;
-        } 
-        ndx = tempNdx;
-    }
+//     for(int ndx=0;ndx<total;ndx++){
+//         // get the same ndx fom each channel and put that into buffer at next index
+//         int tempNdx = ndx;
+//         for(int ndx2=1;ndx2<=nChnls;ndx2++){
+//             buffer[tempNdx] = newChannel${ndx2}[ndx]; 
+//             tempNdx++;
+//         } 
+//         ndx = tempNdx;
+//     }
+//     return 0;
+// }
 
+// Amplitude Modulation
+// Periodic variation in amplitude level by means of an oscillator
+// Sub audio vs audio rate - LFO(<18hz) vs HFO(>18hz)
+// Tremelo vs side bands, which happens > 18Hz or so
+// "Classical" approach vs 
+int ampMod(double *buffer, int length, int SR, double vco) {
+    double amp = 1.0, freq, phase=0.0;
+    double tr;
+    for(int ndx=0;ndx<length;ndx++) {
+        freq = vco;
+        tr = amp * sin(freq*ndx*2.0*PI/SR+phase);
+        buffer[ndx] = buffer[ndx]*tr;
+    }
     return 0;
 }

@@ -1,5 +1,9 @@
+#include <cmath>
+
+
 #ifndef PROCESSING_HPP_
 #define PROCESSING_HPP_
+const double PI = 4.0 * atan(1.0);
 
 int gain(double *buffer, int length, double gainFac);
 
@@ -17,6 +21,8 @@ int fadeIn(double *buffer, int SR, int nChnls, double fadeTime);
 
 int fadeIn(double *buffer, int length, int SR, int nChnls, double fadeTime);
 
-int dynPan(double *buffer, int length, int SR, int nChnls);
+int ampMod(double *buffer, int length, int SR, double vco);
+
+// int dynPan(double *buffer, int length, int SR, int nChnls);
 
 #endif /* PROCESSING.HPP */

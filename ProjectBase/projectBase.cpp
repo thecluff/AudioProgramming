@@ -45,11 +45,12 @@ int main(int argc, const char * argv[]){
 
 	fadeOut(outp, sfInInfo.channels*sfInInfo.frames, sfInInfo.samplerate, sfInInfo.channels, 1.5);
 
-	dynPan(outp, sfInInfo.channels*sfInInfo.frames, sfInInfo.samplerate, sfInInfo.channels );
-
-	// fadeIn(double *buffer, int SR, int nChnls, double fadeTime);
+	// dynPan(outp, sfInInfo.channels*sfInInfo.frames, sfInInfo.samplerate, sfInInfo.channels );
 
 	// rectify(outp, sfInInfo.frames*sfInInfo.channels);
+
+	ampMod(outp, sfInInfo.channels*sfInInfo.frames, sfInInfo.samplerate, 2.0);
+
 
 	// Put processing functions here
 	normalize(outp, sfInInfo.frames*sfInInfo.channels);
@@ -75,7 +76,6 @@ int openInput(const char *fn) {
 
 int openOutput(const char *fn, int nChnls) {
     	// Open the output file
-
 	sfOutInfo.frames = sfInInfo.frames;
 	sfOutInfo.channels = nChnls;
 	sfOutInfo.samplerate = sfInInfo.samplerate;
@@ -123,9 +123,7 @@ int writeOutput(){
 	return 0;
 }
 
-
 int cleanUp() {
-
 	sf_close(infile);
 	sf_close(outfile);
 	delete[] inp;
