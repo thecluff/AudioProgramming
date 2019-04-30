@@ -182,5 +182,4 @@ int cleanUp() {
 	return 0;
 }
 
-
 // Arguments: input file, output file, and offset
