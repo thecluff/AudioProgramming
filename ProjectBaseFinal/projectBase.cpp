@@ -15,7 +15,7 @@ SF_INFO sfInInfo, sfOutInfo;
 sf_count_t readCount, writeCount;
 
 // Buffers
-double *inp, *outp;
+double *inp, *outp, *mono;
 
 // Forward declarations
 int openInput(const char *fn);
@@ -33,6 +33,8 @@ int main(int argc, const char * argv[]){
 	// Allocate buffers
 	inp = new double[sfInInfo.frames*sfInInfo.channels];
 	outp = new double[sfInInfo.frames*sfInInfo.channels];
+	mono = new double[sfInInfo.frames];
+
 	readInput();
 	copySamples(inp, outp, sfInInfo.frames*sfInInfo.channels);
 
@@ -54,19 +56,19 @@ int main(int argc, const char * argv[]){
 	case 5:
 		fadeOut(outp, sfInInfo.frames*sfInInfo.channels, sfInInfo.samplerate, atoi(argv[3]), atof(argv[5]));
 		break;
-	// case 6:
-	// 	stereoToMono(outp, sfInInfo.frames*sfInInfo.channels, mono);
-	// 	panMod(mono, sfInInfo.frames, outp, sfInInfo.samplerate, atof(argv[5]));
-	// 	break;
 	case 6:
-		ampMod(outp, sfInInfo.frames*sfInInfo.channels, sfInInfo.samplerate, atof(argv[5]));
+		stereoToMono(outp, sfInInfo.frames*sfInInfo.channels, mono);
+		panMod(mono, sfInInfo.frames, outp, sfInInfo.samplerate, atof(argv[5]));
+		break;
 	case 7:
+		ampMod(outp, sfInInfo.frames*sfInInfo.channels, sfInInfo.samplerate, atof(argv[5]));
+	case 8:
 		pitchChange(outp, sfInInfo.frames*sfInInfo.channels, atof(argv[5]), atof(argv[6]));
 		break;
-	case 8:
+	case 9:
 		extortion(outp, sfInInfo.frames*sfInInfo.channels, atof(argv[5]));
 		break;
-	case 9:
+	case 10:
 		waveShape(outp, sfInInfo.frames*sfInInfo.channels, atof(argv[5]), atof(argv[6]));
 		break;
 	}
@@ -81,11 +83,11 @@ int openInput(const char *fn) {
     // Opens input file
     if (!(infile = sf_open(fn, SFM_READ, &sfInInfo)))
 	{
-		cout << "Not able to open input file; closing program." << endl;
+		// cout << "Not able to open input file; closing program." << endl;
 		sf_perror(NULL);
 		return 1;
 	}
-    cout << "Input file opened for reading." << endl;
+    // cout << "Input file opened for reading." << endl;
 
     return 0;
 }
@@ -99,12 +101,12 @@ int openOutput(const char *fn, int nChnls) {
 
 	if (!(outfile = sf_open(fn, SFM_WRITE, &sfOutInfo)))
 	{
-		cout << "Not able to open the output file." << endl;
-		cout << "Application will now close." << endl;
+		// cout << "Not able to open the output file." << endl;
+		// cout << "Application will now close." << endl;
 		sf_perror(NULL);
 		return 1;
 	}
-	cout << "Output file  opened for writing" << endl;
+	// cout << "Output file  opened for writing" << endl;
     return 0;
 }
 
@@ -119,8 +121,7 @@ int openOutput(const char *fn, int nChnls) {
 
 int readInput() {
     readCount = sf_read_double(infile, inp, sfInInfo.frames*sfInInfo.channels);
-	cout << "The number of samples read is " << readCount << endl;
-
+	// cout << "The number of samples read is " << readCount << endl;
     return 0;
 }
 
@@ -129,13 +130,13 @@ int copySamples(double *inBuf, double *outBuf, int length) {
 	for(int ndx=0;ndx<length;ndx++){
 		outBuf[ndx] = inBuf[ndx];
 	}
-	cout << length << " samples copied from input buffer to output buffer." << endl;
+	// cout << length << " samples copied from input buffer to output buffer." << endl;
 	return 0;
 }
 
 int writeOutput(){
 	writeCount = sf_write_double(outfile, outp, readCount*sfOutInfo.channels);
-	cout << writeCount << " samples written to output file." << endl;
+	// cout << writeCount << " samples written to output file." << endl;
 	return 0;
 }
 
@@ -144,6 +145,6 @@ int cleanUp() {
 	sf_close(outfile);
 	delete[] inp;
 	delete[] outp;
-	cout << "Input and output files closed and buffers deleted." << endl;
+	// cout << "Input and output files closed and buffers deleted." << endl;
 	return 0;
 }

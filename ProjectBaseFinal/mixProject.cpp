@@ -30,7 +30,7 @@ int cleanUp();
 int main(int argc, const char *argv[]){
 
     if(argc<5) {
-        cout << "Input arguments are: input file 1, input file 2, output file, offset, gain." << endl;
+        // cout << "Input arguments are: input file 1, input file 2, output file, offset, gain." << endl;
         return 0;
     }
 
@@ -58,7 +58,7 @@ int main(int argc, const char *argv[]){
     readInput1();
     readInput2();
 
-    cout << "Mixing..." << endl;
+    // cout << "Mixing..." << endl;
 
     for(int ndx=0;ndx<len1;ndx++){
         outp[ndx] = inp1[ndx];
@@ -68,17 +68,17 @@ int main(int argc, const char *argv[]){
         outp[ndx] = outp[ndx] + inp2[ndx-offsetInSamples];
     }
 
-    cout << "File streams mixed." << endl;
+    // cout << "File streams mixed." << endl;
 
     normalize(outp, outputBufferLength);
     gain(outp, outputBufferLength, atof(argv[5]));
     writeOutput(outputBufferLength);
     cleanUp();
 
-    cout << "The number of input1's frames is " << readCount1 << endl;
-    cout << "The number of input2's frames is " << readCount2 << endl;
-    cout << "The offset in frames is " << offsetInFrames << endl;
-    cout << "The number of output frames is " << writeCount << endl;
+    // cout << "The number of input1's frames is " << readCount1 << endl;
+    // cout << "The number of input2's frames is " << readCount2 << endl;
+    // cout << "The offset in frames is " << offsetInFrames << endl;
+    // cout << "The number of output frames is " << writeCount << endl;
 
     return 0;
 }
@@ -87,11 +87,11 @@ int openInput1(const char *fn) {
     // Opens input file
     if (!(infile1 = sf_open(fn, SFM_READ, &sfInInfo1)))
 	{
-		cout << "Not able to open input file; closing now." << endl;
+		// cout << "Not able to open input file; closing now." << endl;
 		sf_perror(NULL);
 		return 1;
 	}
-    cout << "Input file 1 opened for reading." << endl;
+    // cout << "Input file 1 opened for reading." << endl;
 
     return 0;
 }
@@ -100,26 +100,26 @@ int openInput2(const char *fn) {
     // Opens input file
     if (!(infile2 = sf_open(fn, SFM_READ, &sfInInfo2)))
 	{
-		cout << "Not able to open input file; closing now." << endl;
+		// cout << "Not able to open input file; closing now." << endl;
 		sf_perror(NULL);
 		return 1;
 	}
-    cout << "Input file 2 opened for reading." << endl;
+    // cout << "Input file 2 opened for reading." << endl;
 
     return 0;
 }
 
 int readInput1() {
-    cout << "Now reading input 1." << endl;
+    // cout << "Now reading input 1." << endl;
     readCount1 = sf_read_double(infile1, inp1, sfInInfo1.frames*sfInInfo1.channels);
-	cout << "The number of samples read is " << readCount1 << endl;
+	// cout << "The number of samples read is " << readCount1 << endl;
     return 0;
 }
 
 int readInput2() {
-    cout << "Now reading input 2." << endl;
+    // cout << "Now reading input 2." << endl;
     readCount2 = sf_read_double(infile2, inp2, sfInInfo2.frames*sfInInfo2.channels);
-	cout << "The number of samples read is " << readCount2 << endl;
+	// cout << "The number of samples read is " << readCount2 << endl;
     return 0;
 }
 
@@ -138,7 +138,7 @@ int normalize(double *buffer, int length) {
             highestAmp = fabs(buffer[ndx]);
         }
     }
-    cout << "Normalizing.. The highest magnitude is " << highestAmp << "." << endl;
+    // cout << "Normalizing.. The highest magnitude is " << highestAmp << "." << endl;
     double normFac = 1.0/highestAmp;
     for(int ndx=0;ndx<length;ndx++) {
         buffer[ndx] *= normFac;
@@ -160,14 +160,14 @@ int openOutput(const char *fn, int length) {
 		sf_perror(NULL);
 		return 1;
 	}
-	cout << "Output file  opened for writing" << endl;
+	// cout << "Output file  opened for writing" << endl;
     return 0;
 }
 
 int writeOutput(int length){
-    cout << "Writing the output." << endl;
+    // cout << "Writing the output." << endl;
 	writeCount = sf_write_double(outfile, outp, length);
-	cout << writeCount << " samples written to output file." << endl;
+	// cout << writeCount << " samples written to output file." << endl;
 	return 0;
 }
 
@@ -178,7 +178,7 @@ int cleanUp() {
 	delete[] inp1;
 	delete[] inp2;
 	delete[] outp;
-	cout << "Input and output files closed and buffers deleted." << endl;
+	// cout << "Input and output files closed and buffers deleted." << endl;
 	return 0;
 }
 

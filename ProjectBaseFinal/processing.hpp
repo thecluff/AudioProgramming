@@ -1,4 +1,6 @@
+#include <iostream>
 #include <cmath>
+#include <cstdlib>
 
 #ifndef PROCESSING_HPP_
 #define PROCESSING_HPP_
@@ -20,10 +22,10 @@ int fadeIn(double *buffer, int SR, int nChnls, double fadeTime);
 
 int fadeIn(double *buffer, int length, int SR, int nChnls, double fadeTime);
 
-// int dynPan(double *buffer, int length, int SR, int nChnls);
-
 int ampMod(double *buffer, int length, int SR, double vco);
 
 int panMod(double *inBuf, int length, double *outBuf, int SR, double vco);
+
+int stereoToMono(double *stereoBuf, int length, double *monoBuf);
 
 #endif /* PROCESSING.HPP */
