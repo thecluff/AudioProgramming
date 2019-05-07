@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <cstdlib>
+#include <cmath>
 #include <sndfile.h>
 #include "processing.cpp"
 #include "processing.hpp"
@@ -35,26 +36,40 @@ int main(int argc, const char * argv[]){
 	readInput();
 	copySamples(inp, outp, sfInInfo.frames*sfInInfo.channels);
 
-	reverse(outp, outp, sfInInfo.frames*sfInInfo.channels);
-
-	// invert(outp, sfInInfo.frames*sfInInfo.channels);
-
-	clip(outp, sfInInfo.frames*sfInInfo.channels, sfInInfo.channels);
-
-	fadeIn(outp, sfInInfo.samplerate, sfInInfo.channels, 1);
-
-	fadeOut(outp, sfInInfo.channels*sfInInfo.frames, sfInInfo.samplerate, sfInInfo.channels, 1.5);
-
-	// dynPan(outp, sfInInfo.channels*sfInInfo.frames, sfInInfo.samplerate, sfInInfo.channels );
-
-	rectify(outp, sfInInfo.frames*sfInInfo.channels);
-
-	ampMod(outp, sfInInfo.channels*sfInInfo.frames, sfInInfo.samplerate, 30);
-
-	// panMod(inp, sfInInfo.channels*sfInInfo.frames, outp, sfInInfo.samplerate, 0.35);
-
 	// Put processing functions here
-	normalize(outp, sfInInfo.frames*sfInInfo.channels);
+	switch(atoi(argv[4])) {
+	case 1:
+		normalize(outp, sfInInfo.frames*sfInInfo.channels);
+		gain(outp, sfInInfo.frames*sfInInfo.channels, atof(argv[5]));
+		break;
+	case 2:
+		reverse(outp, outp, sfInInfo.frames*sfInInfo.channels);
+		break;
+	case 3:
+		rectify(outp, sfInInfo.frames*sfInInfo.channels);
+		break;
+	case 4:
+		fadeIn(outp, sfInInfo.samplerate, sfInInfo.channels, 1);
+		break;
+	case 5:
+		fadeOut(outp, sfInInfo.frames*sfInInfo.channels, sfInInfo.samplerate, atoi(argv[3]), atof(argv[5]));
+		break;
+	// case 6:
+	// 	// stereoToMono(outp, sfInInfo.frames*sfInInfo.channels, mono);
+	// 	// panMod(mono, sfInInfo.frames, outp, sfInInfo.samplerate, atof(argv[5]));
+	// 	break;
+	case 6:
+		ampMod(outp, sfInInfo.frames*sfInInfo.channels, sfInInfo.samplerate, atof(argv[5]));
+	case 7:
+		pitchChange(outp, sfInInfo.frames*sfInInfo.channels, atof(argv[5]), atof(argv[6]));
+		break;
+	case 8:
+		extortion(outp, sfInInfo.frames*sfInInfo.channels, atof(argv[5]));
+		break;
+	case 9:
+		waveShape(outp, sfInInfo.frames*sfInInfo.channels, atof(argv[5]), atof(argv[6]));
+		break;
+	}
 
 	writeOutput();
 	cleanUp();

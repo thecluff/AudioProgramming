@@ -3,15 +3,6 @@
 #include <cstdlib>
 #include "processing.hpp"
 
-int gain(double *buffer, int length, double gainFac)
-{
-    for (int ndx = 0; ndx < length; ndx++)
-    {
-        buffer[ndx] *= gainFac;
-    }
-    return 0;
-}
-
 int normalize(double *buffer, int length)
 {
     double highestAmp = 0;
@@ -27,6 +18,34 @@ int normalize(double *buffer, int length)
     for (int ndx = 0; ndx < length; ndx++)
     {
         buffer[ndx] *= normFac;
+    }
+    return 0;
+}
+
+int gain(double *buffer, int length, double gainFac)
+{
+    for (int ndx = 0; ndx < length; ndx++)
+    {
+        buffer[ndx] *= gainFac;
+    }
+    return 0;
+}
+
+int clip(double *buffer, int length, double height)
+{
+    for (int ndx = 0; ndx < length; ndx++)
+    {
+        if (fabs(buffer[ndx]) > height)
+        {
+            if (buffer[ndx] < 0.0)
+            {
+                buffer[ndx] = -1.0 * height;
+            }
+            else
+            {
+                buffer[ndx] = height;
+            }
+        }
     }
     return 0;
 }
@@ -55,35 +74,6 @@ int rectify(double *buffer, int length)
     return 0;
 }
 
-// Invert signal polarity (positive to negative, negative to positive)
-int invert(double *buffer, int length)
-{
-    for (int ndx = 0; ndx < length; ndx++)
-    {
-        buffer[ndx] *= -1.0;
-    }
-    return 0;
-}
-
-int clip(double *buffer, int length, double height)
-{
-    for (int ndx = 0; ndx < length; ndx++)
-    {
-        if (fabs(buffer[ndx]) > height)
-        {
-            if (buffer[ndx] < 0.0)
-            {
-                buffer[ndx] = -1.0 * height;
-            }
-            else
-            {
-                buffer[ndx] = height;
-            }
-        }
-    }
-    return 0;
-}
-
 int fadeIn(double *buffer, int SR, int nChnls, double fadeTime)
 {
     int nSamps = SR * nChnls * fadeTime;
@@ -107,44 +97,10 @@ int fadeOut(double *buffer, int length, int SR, int nChnls, double fadeTime)
     return nSamps;
 }
 
-// int dynPan(double *buffer, int length, int SR, int nChnls) {
-//     int total = SR * nChnls;
-
-//     int intervals = SR;
-
-//     for(int ndx=0;ndx<length;ndx++){
-//         // Create each channel as an array of bits
-//         int newChannel1
-//     }
-
-//     for(int ndx=0;ndx<total;ndx++){
-//         // Get the same ndx fom each channel and put that into buffer at next index
-//         int tempNdx = ndx;
-//         for(int ndx2=1;ndx2<=nChnls;ndx2++){
-//             buffer[tempNdx] = newChannel${ndx2}[ndx];
-//             tempNdx++;
-//         }
-//         ndx = tempNdx;
-//     }
-//     return 0;
-// }
-
-// Amplitude Modulation
-// Periodic variation in amplitude level by means of an oscillator
-// Sub audio vs audio rate - LFO(<18hz) vs HFO(>18hz)
-// Tremelo vs side bands, which happens > 18Hz or so
-// "Classical" approach vs
-
-int ampMod(double *buffer, int length, int SR, double vco)
-{
-    double amp = 1.0, freq, phase = 0.0;
-    double tr;
-    for (int ndx = 0; ndx < length; ndx++)
-    {
-        freq = vco * ndx / length;
-        // freq = vco;
-        tr = amp * sin(freq * ndx * 2.0 * PI / SR + phase);
-        buffer[ndx] = buffer[ndx] * tr;
+int stereoToMono(double *stereoBuf, int length, double *monoBuf) {
+    // Mix a 2-channel signal down to one
+    for(int ndx=0; ndx<length/2; ndx++) {
+        monoBuf[ndx] = stereoBuf[ndx*2] * 0.5 + stereoBuf[ndx*2+1] * 0.5;
     }
     return 0;
 }
@@ -171,5 +127,74 @@ int panMod(double *inBuf, int length, double *outBuf, int SR, double vco){
         outBuf[ndx * 2 - 1] = inBuf[ndx] * (1.0 - tr);
     }
 
+    return 0;
+}
+
+int ampMod(double *buffer, int length, int SR, double vco)
+{
+    double amp = 1.0, freq, phase = 0.0;
+    double tr;
+    for (int ndx = 0; ndx < length; ndx++)
+    {
+        freq = vco * ndx / length;
+        // freq = vco;
+        tr = amp * sin(freq * ndx * 2.0 * PI / SR + phase);
+        buffer[ndx] = buffer[ndx] * tr;
+    }
+    return 0;
+}
+
+int pitchChange(double *buffer, int length, double originalPitch, double newPitch) {
+    double resamplingRatio = newPitch / originalPitch;
+    double *tempBuf;
+    int counter = 0;
+    const int tempBufLength = ((int) length/resamplingRatio+1);
+
+    tempBuf = new double[tempBufLength];
+
+    for(double ndx=0.0;ndx<length;ndx+=resamplingRatio) {
+        tempBuf[counter++] = buffer[(int) ndx];
+    }
+    for(int ndx=0;ndx<length;ndx++) {
+        if(ndx<counter) {
+            buffer[ndx] = tempBuf[ndx];
+        }
+        else {
+            buffer[ndx] = 0.0;
+        }
+    }
+    return 0;
+}
+
+int extortion(double *buffer, int length, double height) {
+    // Apply extreme gain
+    gain(buffer, length, 30.0);
+    // Clip if back to 0-1 range
+    clip(buffer, length, height);
+    return 0;
+}
+
+int waveShape (double *buffer, int length, double distortionFacPos, double distortionFacNeg) {
+    // Distortion factors (range 0.2 - 5)
+    for(int ndx=0;ndx<length; ndx++) {
+        if(buffer[ndx]>=0.0) {
+            // Positive sample values only
+            buffer[ndx] = tanh(distortionFacPos*buffer[ndx]/tanh(distortionFacPos));
+        }
+        else {
+            // Negative sample values only
+            buffer[ndx] = tanh(distortionFacNeg*buffer[ndx]/tanh(distortionFacNeg));            
+            }
+        }
+    return 0;
+}
+
+// Invert signal polarity (positive to negative, negative to positive)
+int invert(double *buffer, int length)
+{
+    for (int ndx = 0; ndx < length; ndx++)
+    {
+        buffer[ndx] *= -1.0;
+    }
     return 0;
 }
