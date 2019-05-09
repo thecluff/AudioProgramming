@@ -128,9 +128,12 @@ echo "Chord 5 created."
 #   Combine the previous two files
 ./MixProject ./audio/chords2/mix_chords/chordmix1a.wav ./audio/chords2/mix_chords/chordmix1b.wav ./audio/chords2/mix_chords/chordmix1_final.wav 10.43 0.85
 
+#   Rectify chords
+./FinalProject2 ./audio/chords2/mix_chords/chordmix1_final.wav ./audio/chords2/mix_chords/chordmix1_final2.wav 1 3
+
 #   Mix chords with percussion
 ./MixProject ./raw/other/drumsample1.wav ./raw/other/drumsample2.wav ./audio/drum_mix.wav 0 0.9
-./MixProject ./audio/chords2/mix_chords/chordmix1_final.wav ./audio/drum_mix.wav ./audio/mix_complete.wav 0 0.9
+./MixProject ./audio/chords2/mix_chords/chordmix1_final2.wav ./audio/drum_mix.wav ./audio/mix_complete.wav 0 0.9
 
 
 #   Step 6 - Finishing touches                                 
@@ -148,9 +151,14 @@ echo "Chord 5 created."
 ./FinalProject2 ./audio/pads_2.wav ./audio/pads_3.wav 2 1 0.7
 
 
-./MixProject ./audio/final_mix_vox.wav ./audio/pads_3.wav ./ccluff_final_project.wav 20.869569 1.0
+./MixProject ./audio/final_mix_vox.wav ./audio/pads_3.wav ./audio/ccluff_final_project_mono.wav 20.869569 1.0
 
 echo "Chords and percussion mixed."
+
+#   Make Stereo
+./MonoToStereo ./audio/ccluff_final_project_mono.wav ./ccluff_final_project.wav
+
+echo "Converted to Stereo."
 
 
 #   Clean up files                                                   
