@@ -110,15 +110,6 @@ int openOutput(const char *fn, int nChnls) {
     return 0;
 }
 
-// int allocateBuffers(double *inBuf, double *outBuf, int length) {
-// 	cout << "The number of input samples is" << sfInInfo.frames*sfInInfo.channels << "." << endl;
-// 	cout << "The number of output samples is" << sfOutInfo.frames*sfOutInfo.channels << "." << endl;
-// 	inBuf = new double[sfInInfo.frames * sfInInfo.channels];
-// 	outBuf = new double[sfInInfo.frames * 1];
-
-//     return 0;
-// }
-
 int readInput() {
     readCount = sf_read_double(infile, inp, sfInInfo.frames*sfInInfo.channels);
 	// cout << "The number of samples read is " << readCount << endl;

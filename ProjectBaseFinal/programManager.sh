@@ -19,186 +19,151 @@ echo "      DAT150CA - Beginning Audio Programming     "
 echo "                                                 "
 
 
-#_______________        Step 1 - mix all pureData-generated tones together        _______________
+#   Create directories                               
 
-#               Chord 1
-# (Chord 1) Mix each chord tone 2 tones at a time, then mix the files together, leaving you with an entire chord
-./MixProject ./audio/pd/chordTone1.wav ./audio/pd/chordTone2.wav ./audio/chords/chord1/chord1_3.wav 0 1.0
-./MixProject ./audio/pd/chordTone3.wav ./audio/pd/chordTone4.wav ./audio/chords/chord1/chord2_3.wav 0 1.0
-./MixProject ./audio/chords/chord1/chord1_3.wav ./audio/chords/chord1/chord2_3.wav ./audio/chords/chord1/chord3_3.wav 0 1.0
+mkdir ./audio/
+mkdir ./audio/chords2/
+mkdir ./audio/chords2/chord1/
+mkdir ./audio/chords2/chord2/
+mkdir ./audio/chords2/chord3/
+mkdir ./audio/chords2/chord4/
+mkdir ./audio/chords2/chord5/
+mkdir ./audio/chords2/chords2final/
+mkdir ./audio/chords2/mix_chords/
 
-# Amp mod the chord
-  ./FinalProject2 ./audio/chords/chord1/chord1_3.wav ./audio/chords/chord1/chord1_3_ex.wav 1 2
 
+#   Mix all pureData-generated tones together into chords                               
 
-# (Chord 1) Add a fade in to the chord
-  ./FinalProject2 ./audio/chords/chord1/chord1_3_ex.wav ./audio/chords/chord1/chord1_fadein.wav 1 4 3
+#   Chord 1
+./MixProject ./raw/pd/chord1Tone01.wav ./raw/pd/chord1Tone02.wav ./audio/chords2/chord1/chord1_3.wav 0 1.0
+./MixProject ./raw/pd/chord1Tone03.wav ./raw/pd/chord1Tone04.wav ./audio/chords2/chord1/chord2_3a.wav 0 1.0
+./MixProject ./raw/pd/chord1Tone05.wav ./raw/pd/chord1Tone06.wav ./audio/chords2/chord1/chord2_3b.wav 0 1.0
 
-# (Chord 1) Add a fadeout for 4 sec
-  ./FinalProject2 ./audio/chords/chord1/chord1_fadein.wav ./audio/chords/chords_final/chord1_final.wav 1 5 5
+./MixProject ./audio/chords2/chord1/chord1_3.wav ./audio/chords2/chord1/chord2_3a.wav ./audio/chords2/chord1/chord3_3a.wav 0 1.0
+./MixProject ./audio/chords2/chord1/chord2_3b.wav ./audio/chords2/chord1/chord3_3a.wav ./audio/chords2/chord1/chord1_prefade.wav 0 1.0
+
+#   Add a fade in to the chord for 1 sec
+./FinalProject2 ./audio/chords2/chord1/chord1_prefade.wav ./audio/chords2/chord1/chord1_fadein.wav 1 4 1.0
+
+#   Add a fadeout for 1 sec
+./FinalProject2 ./audio/chords2/chord1/chord1_fadein.wav ./audio/chords2/chords2final/chord1_final.wav 1 5 1.0
 
 echo "Chord 1 created."
 
+#   Chord 2
+./MixProject ./raw/pd/chord2Tone01.wav ./raw/pd/chord2Tone02.wav ./audio/chords2/chord2/chord1_3.wav 0 1.0
+./MixProject ./raw/pd/chord2Tone03.wav ./raw/pd/chord2Tone04.wav ./audio/chords2/chord2/chord2_3a.wav 0 1.0
+./MixProject ./raw/pd/chord2Tone05.wav ./raw/pd/chord2Tone06.wav ./audio/chords2/chord2/chord2_3b.wav 0 1.0
 
-#               Chord 2
-./MixProject ./audio/pd/chord2Tone1.wav ./audio/pd/chord2Tone2.wav ./audio/chords/chord2/chord21_3.wav 0 1.0
-./MixProject ./audio/pd/chord2Tone3.wav ./audio/pd/chord2Tone4.wav ./audio/chords/chord2/chord22_3.wav 0 1.0
-./MixProject ./audio/chords/chord2/chord22_3.wav ./audio/chords/chord2/chord21_3.wav ./audio/chords/chord2/chord2_prefade.wav 0 1.0
+./MixProject ./audio/chords2/chord2/chord1_3.wav ./audio/chords2/chord2/chord2_3a.wav ./audio/chords2/chord2/chord3_3a.wav 0 1.0
+./MixProject ./audio/chords2/chord2/chord2_3b.wav ./audio/chords2/chord2/chord3_3a.wav ./audio/chords2/chord2/chord2_prefade.wav 0 1.0
 
-# (Chord 1) Add a fade in to the chord
-  ./FinalProject2 ./audio/chords/chord2/chord2_prefade.wav ./audio/chords/chord2/chord2_fadein.wav 1 4 3
+#   Add a fade in to the chord for 1 sec
+./FinalProject2 ./audio/chords2/chord2/chord2_prefade.wav ./audio/chords2/chord2/chord2_fadein.wav 1 4 1.0
 
-# (Chord 1) Add a fadeout for 5 sec
-  ./FinalProject2 ./audio/chords/chord2/chord2_fadein.wav ./audio/chords/chords_final/chord2_final.wav 1 5 5
+#   Add a fadeout for 1 sec
+./FinalProject2 ./audio/chords2/chord2/chord2_fadein.wav ./audio/chords2/chords2final/chord2_final.wav 1 5 1.0
 
 echo "Chord 2 created."
 
+#   Chord 3
+./MixProject ./raw/pd/chord3Tone01.wav ./raw/pd/chord3Tone02.wav ./audio/chords2/chord3/chord1_3.wav 0 1.0
+./MixProject ./raw/pd/chord3Tone03.wav ./raw/pd/chord3Tone04.wav ./audio/chords2/chord3/chord2_3a.wav 0 1.0
 
+./MixProject ./audio/chords2/chord3/chord1_3.wav ./audio/chords2/chord3/chord2_3a.wav ./audio/chords2/chord3/chord3_3a.wav 0 1.0
+./MixProject ./raw/pd/chord3Tone05.wav ./audio/chords2/chord3/chord3_3a.wav ./audio/chords2/chord3/chord3_prefade.wav 0 1.0
 
-#               Chord 3
-./MixProject ./audio/pd/chord3Tone1.wav ./audio/pd/chord3Tone2.wav ./audio/chords/chord3/chord31_3.wav 0 1.0
-./MixProject ./audio/pd/chord3Tone3.wav ./audio/pd/chord3Tone4.wav ./audio/chords/chord3/chord32_3.wav 0 1.0
-./MixProject ./audio/pd/chord3Tone5.wav ./audio/chords/chord3/chord32_3.wav ./audio/chords/chord3/chord33_3.wav 0 1.0
+#   Add a fade in to the chord for 1 sec
+./FinalProject2 ./audio/chords2/chord3/chord3_prefade.wav ./audio/chords2/chord3/chord3_fadein.wav 1 4 1.0
 
-./MixProject ./audio/chords/chord3/chord33_3.wav ./audio/chords/chord3/chord31_3.wav ./audio/chords/chord3/chord3_prefade.wav 0 1.0
-
-# (Chord 1) Add a fade in to the chord
-  ./FinalProject2 ./audio/chords/chord3/chord3_prefade.wav ./audio/chords/chord3/chord3_fadein.wav 1 4 3
-
-# (Chord 1) Add a fadeout for 4 sec
-  ./FinalProject2 ./audio/chords/chord3/chord3_fadein.wav ./audio/chords/chords_final/chord3_final.wav 1 5 5
+#   Add a fadeout for 1 sec
+./FinalProject2 ./audio/chords2/chord3/chord3_fadein.wav ./audio/chords2/chords2final/chord3_final.wav 1 5 1.0
 
 echo "Chord 3 created."
 
+#   Chord 4
+./MixProject ./raw/pd/chord4Tone01.wav ./raw/pd/chord4Tone02.wav ./audio/chords2/chord4/chord1_3.wav 0 1.0
+./MixProject ./raw/pd/chord4Tone03.wav ./raw/pd/chord4Tone04.wav ./audio/chords2/chord4/chord2_3a.wav 0 1.0
 
-#               Chord 4
-./MixProject ./audio/pd/chord4Tone1.wav ./audio/pd/chord4Tone2.wav ./audio/chords/chord4/chord41_3.wav 0 1.0
-./MixProject ./audio/pd/chord4Tone3.wav ./audio/pd/chord4Tone4.wav ./audio/chords/chord4/chord42_3.wav 0 1.0
-./MixProject ./audio/pd/chord4Tone5.wav ./audio/chords/chord4/chord42_3.wav ./audio/chords/chord4/chord43_3.wav 0 1.0
+./MixProject ./audio/chords2/chord4/chord1_3.wav ./audio/chords2/chord4/chord2_3a.wav ./audio/chords2/chord4/chord3_3a.wav 0 1.0
+./MixProject ./raw/pd/chord4Tone05.wav ./audio/chords2/chord4/chord3_3a.wav ./audio/chords2/chord4/chord4_prefade.wav 0 1.0
 
-./MixProject ./audio/chords/chord4/chord43_3.wav ./audio/chords/chord4/chord41_3.wav ./audio/chords/chord4/chord4_prefade.wav 0 1.0
+#   Add a fade in to the chord for 1 sec
+./FinalProject2 ./audio/chords2/chord4/chord4_prefade.wav ./audio/chords2/chord4/chord4_fadein.wav 1 4 1.0
 
-# (Chord 1) Add a fade in to the chord
-  ./FinalProject2 ./audio/chords/chord4/chord4_prefade.wav ./audio/chords/chord4/chord4_fadein.wav 1 4 3
-
-# (Chord 1) Add a fadeout for bigshot0_25gain.wav of 8 secs
-  ./FinalProject2 ./audio/chords/chord4/chord4_fadein.wav ./audio/chords/chords_final/chord4_final.wav 1 5 5
+#   Add a fadeout for 1 sec
+./FinalProject2 ./audio/chords2/chord4/chord4_fadein.wav ./audio/chords2/chords2final/chord4_final.wav 1 5 1.0
 
 echo "Chord 4 created."
 
+#   Chord 5
+./MixProject ./raw/pd/chord5Tone01.wav ./raw/pd/chord5Tone02.wav ./audio/chords2/chord5/chord1_3.wav 0 1.0
+./MixProject ./raw/pd/chord5Tone03.wav ./raw/pd/chord5Tone04.wav ./audio/chords2/chord5/chord2_3a.wav 0 1.0
+./MixProject ./raw/pd/chord5Tone05.wav ./raw/pd/chord5Tone06.wav ./audio/chords2/chord5/chord2_3b.wav 0 1.0
 
-#_______________        Step 2 - Use MixProject to loop the percussion files        _______________
+./MixProject ./audio/chords2/chord5/chord1_3.wav ./audio/chords2/chord5/chord2_3a.wav ./audio/chords2/chord5/chord3_3a.wav 0 1.0
+./MixProject ./audio/chords2/chord5/chord2_3b.wav ./audio/chords2/chord5/chord3_3a.wav ./audio/chords2/chord5/chord5_prefade.wav 0 1.0
 
-# Double the length
-./MixProject ./audio/percussion/kick.wav ./audio/percussion/kick.wav ./audio/percussion/kick_doubled.wav 5.217370 1.0
-./MixProject ./audio/percussion/shaker1.wav ./audio/percussion/shaker1.wav ./audio/percussion/shaker1_doubled.wav 5.217370 1.0
-./MixProject ./audio/percussion/shaker2.wav ./audio/percussion/shaker2.wav ./audio/percussion/shaker2_doubled.wav 5.217370 1.0
-./MixProject ./audio/percussion/hats.wav ./audio/percussion/hats.wav ./audio/percussion/hats_doubled.wav 5.217370 1.0
+#   Add a fade in to the chord for 1 sec
+./FinalProject2 ./audio/chords2/chord5/chord5_prefade.wav ./audio/chords2/chord5/chord5_fadein.wav 1 4 1.0
 
-./MixProject ./audio/percussion/snare.wav ./audio/percussion/snare.wav ./audio/percussion/snare_doubled.wav 5.217370 1.0
+#   Add a fadeout for 1.5 sec
+./FinalProject2 ./audio/chords2/chord5/chord5_fadein.wav ./audio/chords2/chords2final/chord5_final.wav 1 5 1.5
 
-# Quadruple the length
-./MixProject ./audio/percussion/kick_doubled.wav ./audio/percussion/kick_doubled.wav ./audio/percussion/kick_4x.wav 5.217370 1.0
-./MixProject ./audio/percussion/shaker1_doubled.wav ./audio/percussion/shaker1_doubled.wav ./audio/percussion/shaker1_4x.wav 5.217370 1.0
-./MixProject ./audio/percussion/shaker2_doubled.wav ./audio/percussion/shaker2_doubled.wav ./audio/percussion/shaker2_4x.wav 5.217370 1.0
-./MixProject ./audio/percussion/hats_doubled.wav ./audio/percussion/hats_doubled.wav ./audio/percussion/hats_4x.wav 5.217370 1.0
-
-./MixProject ./audio/percussion/snare_doubled.wav ./audio/percussion/snare_doubled.wav ./audio/percussion/snare_4x.wav 5.217370 1.0
-
-# Add one more iteration
-
-# ./MixProject ./audio/percussion/kick_4x.wav ./audio/percussion/kick_4x.wav ./audio/percussion/kick_longer.wav 5.217370 1.0
-# ./MixProject ./audio/percussion/shaker1_4x.wav ./audio/percussion/shaker1_4x.wav  ./audio/percussion/shaker1_longer.wav 5.217370 1.0
-# ./MixProject ./audio/percussion/shaker2_4x.wav ./audio/percussion/shaker2_4x.wav ./audio/percussion/shaker2_longer.wav 5.217370 1.0
-# ./MixProject ./audio/percussion/hats_4x.wav ./audio/percussion/hats_4x.wav ./audio/percussion/hats_longer.wav 5.217370 1.0
-
-# ./MixProject ./audio/percussion/snare_4x.wav ./audio/percussion/snare_4x.wav ./audio/percussion/snare_longer.wav 5.217370 1.0
-
-echo "Percussion looped"
-
-#_______________        Step 3 - Process Percussion Audio stems        _______________
-
-# Reduce the gain for raw mono drum stems to 70%
-  ./FinalProject2 ./audio/percussion/kick_4x.wav ./audio/percussion/processed/kick_halfDB.wav 1 1 0.70
-  ./FinalProject2 ./audio/percussion/shaker1_4x.wav ./audio/percussion/processed/shaker1_halfDB.wav 1 1 0.70
-  ./FinalProject2 ./audio/percussion/shaker2_4x.wav ./audio/percussion/processed/shaker2_halfDB.wav 1 1 0.70
-  ./FinalProject2 ./audio/percussion/hats_4x.wav ./audio/percussion/processed/hats_halfDB.wav 1 1 0.70
-
-  ./FinalProject2 ./audio/percussion/snare_4x.wav ./audio/percussion/processed/snare_halfDB.wav 1 1 0.70
-
-# Add extortion to chord 1
-# ./FinalProject2 ./audio/chords/chord4/chord1_final.wav ./audio/chords/processed/chord1_extortion.wav 1 9 1
-
-echo "Percussion processed."
+echo "Chord 5 created."
 
 
-#_______________        Step 4 - Mix Percussion Audio stems        _______________
+#   Combine all other elements                                 
 
-# Mix snare and kick
-./MixProject ./audio/percussion/processed/kick_halfDB.wav ./audio/percussion/processed/snare_halfDB.wav ./audio/percussion/kick_snare_fin.wav 0 0.70
+#   Mix chords together from monophonic audio files
+./MixProject ./audio/chords2/chords2final/chord1_final.wav ./audio/chords2/chords2final/chord2_final.wav ./audio/chords2/mix_chords/chordmix1.wav 2.61 1.0
+./MixProject ./audio/chords2/chords2final/chord3_final.wav ./audio/chords2/chords2final/chord4_final.wav ./audio/chords2/mix_chords/chordmix2.wav 2.61 1.0
+./MixProject ./audio/chords2/chords2final/chord1_final.wav ./audio/chords2/chords2final/chord2_final.wav ./audio/chords2/mix_chords/chordmix3.wav 2.61 1.0
+./MixProject ./audio/chords2/chords2final/chord5_final.wav ./audio/chords2/chords2final/chord1_final.wav ./audio/chords2/mix_chords/chordmix4.wav 2.61 1.0
 
-# Mix shaker files together
-./MixProject ./audio/percussion/processed/shaker1_halfDB.wav ./audio/percussion/processed/shaker2_halfDB.wav  ./audio/percussion/shakers_fina.wav 0 0.70
-./MixProject ./audio/percussion/shakers_fina.wav ./audio/percussion/processed/hats_halfDB.wav  ./audio/percussion/shakers_fin.wav 0 0.70
+#   Combine each chord consecutively, in two different files
+./MixProject ./audio/chords2/mix_chords/chordmix1.wav ./audio/chords2/mix_chords/chordmix2.wav ./audio/chords2/mix_chords/chordmix1a.wav 5.22 1.0
+./MixProject ./audio/chords2/mix_chords/chordmix3.wav ./audio/chords2/mix_chords/chordmix4.wav ./audio/chords2/mix_chords/chordmix1b.wav 5.22 1.0
+
+#   Combine the previous two files
+./MixProject ./audio/chords2/mix_chords/chordmix1a.wav ./audio/chords2/mix_chords/chordmix1b.wav ./audio/chords2/mix_chords/chordmix1_final.wav 10.43 0.85
+
+#   Mix chords with percussion
+./MixProject ./raw/other/drumsample1.wav ./raw/other/drumsample2.wav ./audio/drum_mix.wav 0 0.9
+./MixProject ./audio/chords2/mix_chords/chordmix1_final.wav ./audio/drum_mix.wav ./audio/mix_complete.wav 0 0.9
 
 
-# Mix both percussion parts together
-./MixProject ./audio/percussion/shakers_fin.wav ./audio/percussion/kick_snare_fin.wav ./audio/percussion/percussion_fin.wav 0 1.0
+#   Step 6 - Finishing touches                                 
 
-echo "Percussion mixed."
+#   Double the complete mix
+./MixProject ./audio/mix_complete.wav ./audio/mix_complete.wav ./audio/final_mix_double.wav 20.869569 1.0
 
-#_______________        Step 5 - Combine chords with percussion        _______________
+#   Add rap vocals
+./MixProject ./audio/final_mix_double.wav ./raw/other/acapella.wav ./audio/final_mix_vox.wav 20.869569 1.0
 
-# Mix chords together
-./MixProject ./audio/chords/chords_final/chord2_final.wav ./audio/chords/chords_final/chord3_final.wav ./audio/chords/mix_chords/chordmix1.wav 5 1.0
-./MixProject ./audio/chords/chords_final/chord1_final.wav ./audio/chords/chords_final/chord4_final.wav ./audio/chords/mix_chords/chordmix2.wav 5 1.0
-./MixProject ./audio/chords/mix_chords/chordmix1.wav ./audio/chords/mix_chords/chordmix2.wav ./audio/chords/mix_chords/chordmix_final.wav 5 1.0
+#   Final Bounce
 
-# Mix chords with percussion
-./MixProject ./audio/chords/mix_chords/chordmix_final.wav ./audio/percussion/percussion_fin.wav ./audio/final_mix1.wav 0 0.9
-./MixProject  ./audio/final_mix1.wav ./audio/chords/chords_final/chord3_final.wav ./audio/final_mixb.wav 15.0375 0.9
-./MixProject  ./audio/percussion/fill2.wav ./audio/final_mixb.wav ./audio/final_mix.wav 0 0.9
+#   Process other stems
+./FinalProject2 ./raw/other/pads.wav ./audio/pads_2.wav 1 10 1 3
+./FinalProject2 ./audio/pads_2.wav ./audio/pads_3.wav 2 1 0.7
 
-# Double the whole final mix
-./MixProject ./audio/final_mix.wav ./audio/final_mix.wav ./audio/final_mix_double.wav 20.869551 1.0
+
+./MixProject ./audio/final_mix_vox.wav ./audio/pads_3.wav ./ccluff_final_project.wav 20.869569 1.0
 
 echo "Chords and percussion mixed."
 
 
-#_______________        Step 6 - Add fade to final audio file        _______________
+#   Clean up files                                                   
 
-# (Chord 1) Add a fade in
-  ./FinalProject2 ./audio/final_mix_double.wav ./audio/final_mix_fadein.wav 1 4 1
-
-# (Chord 1) Add a fadeout
-  ./FinalProject2 ./audio/final_mix_fadein.wav ./final_mix_final.wav 1 5 5
+rm -r ./audio/
 
 echo "Song is now complete!"
 
 while true; do
     read -p "Do you want to open the song now? (y or n) " yn
     case $yn in
-        [Yy]* ) open ./final_mix_final.wav; break;;
+        [Yy]* ) open ccluff_final_project.wav; break;;
         [Nn]* ) exit;;
         * ) echo "Please answer yes or no.";;
     esac
 done
-
-
-# ./ProjectBase infilename outfilename channels algorithm value 1 value 2
-# ./MixProject infilename1 infilename2 outflename offset gain
-
-# Reduce the gain for salt-n-peppa_bigshot_ex.wav to 35%
-#   ./ProjectBaseFinal salt_n_pepa_bigshot_ex.wav bigshot0_25gain.wav 2 1 0.35
-
-# Add a fadein for bigshot0_25gain,wav of 10 secs
-#   ./ProjectBaseFinal bigshot0_25gain.wav bigshot-gainfade.wav 2 4 10
-
-# Add a fadeout for bigshot0_25gain.wav of 8 secs
-#   ./ProjectBaseFinal bigshot_gainfade.wav bigshot_gainfade2.wav 2 5 8
-
-# Add a fadeout to riverdance_ex.wav of 4 secs
-#   ./ProjectBaseFinal riverdance_ex.wav riverdancefadeOut.wav 2 5 4
-
-# Mix riverdancefadeOut.wav and bigshot_gainfade.wav to yield strange_mix.wav 8 1.0
-#   ./MixProject riverdancefadeOut.wav bigshot gainfade2.wav strangemix.wav 8 1.0
